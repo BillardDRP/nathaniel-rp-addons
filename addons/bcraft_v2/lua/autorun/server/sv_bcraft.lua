@@ -1,13 +1,26 @@
 BCraft = {}
 
+--Recipe template: 11223344item_class
+--Would require 11 wood, 22 springs, 33 wrenches, and 44 gunpowder
+--Would give item_class
+--The recipe is equal to whether or not it can be crafted
+
 BCraft.RecipeList = {
-	["00000200lockpick"] = true,
-	["02030100m9k_ak47"] = true,
+	["00000400lockpick"] = true,
+	["03050202m9k_ak47"] = true,
+	["00020101m9k_deagle"] = true,
+	["06020402m9k_double_barrel"] = true,
+	["00060808npc_turret_floor"] = true,
+
+	["00020800cityrp_kevlar"] = false,
+	["00020208cityrp_ammo_dispenser"] = false,
+	["10302500prop_vehicle_jeep"] = false,
+	["99999999m9k_davy_crockett"] = false,
 }
 
-local meta = FindMetaTable("Player")
+local PlyMeta = FindMetaTable("Player")
 
-function meta:GetBCraftSupply() --Returns: Player's wood, player's springs, player's wrenches, player's gunpowder
+function PlyMeta:GetBCraftSupply() --Returns: Player's wood, player's springs, player's wrenches, player's gunpowder
 	return tonumber(self:GetPData("bcraft_wood", 0)), tonumber(self:GetPData("bcraft_spring", 0)), tonumber(self:GetPData("bcraft_wrench", 0)), tonumber(self:GetPData("bcraft_gunpowder", 0))
 end
 
