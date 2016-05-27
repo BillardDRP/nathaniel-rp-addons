@@ -26,12 +26,27 @@ function ENT:OnTakeDamage(dmg)
 	self:TakePhysicsDamage(dmg)
 end
 
+function ENT:CraftItem(classname, model)
+	if self:GetIsCrafting() then return end
+	timer.Simple(10, function()
+		local CraftOutput = ents.Create("bcraft_output")
+		CraftOutput:SetOutputClass(classname)
+		CraftOutput:SetModel(model)
+		CraftOutput:SetPos(self:GetPos() + Vector(0, 75, 0))
+		CraftOutput:Spawn()
+	end)
+end
+
 function ENT:Use(activator, caller)
 	if !IsValid(caller) or !IsPlayer(caller) then return end
 	--if self:GetBeingUsed() then
 		--caller:ChatPrint("This crafting station is already in use!")
 	--else
 	--self:SetBeingUsed(true)
+	if self:GetIsCrafting() then
+		caller:ChatPrint("This crafting station is currently crafting an item.")
+		return
+	end
 	local PlyWood, PlySpring, PlyWrench = caller:GetBCraftSupply() --Ayy multi-return
 	caller:ChatPrint("You currently have "..PlyWood.." wood, "..PlySpring.." springs, and "..PlyWrench.." wrenches.")
 	--self:SetBeingUsed(false)
