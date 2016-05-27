@@ -6,8 +6,12 @@ include("bcraft_config.lua")
 
 local meta = FindMetaTable("Player")
 
-local function meta:GetBCraftSupply()
+local function meta:GetBCraftSupply() --Returns: Player's wood, player's springs, player's wrenches
 	return tonumber(self:GetPData("bcraft_wood", 0)), tonumber(self:GetPData("bcraft_spring", 0)), tonumber(self:GetPData("bcraft_wrench", 0))
+end
+
+local function DecodeRecipeString(recipe) --Returns: Wood needed, springs needed, wrenches needed, entity classname
+	return tonumber(string.sub(recipe, 1, 2)), tonumber(string.sub(recipe, 3, 4)), tonumber(string.sub(recipe, 5, 6)), tostring(string.sub(7, string.len(recipe)))
 end
 
 function ENT:Initialize()
