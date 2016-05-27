@@ -4,6 +4,12 @@ AddCSLuaFile("shared.lua")
 include("shared.lua")
 include("bcraft_config.lua")
 
+local meta = FindMetaTable("Player")
+
+local function meta:GetBCraftSupply()
+	return tonumber(self:GetPData("bcraft_wood", 0)), tonumber(self:GetPData("bcraft_spring", 0)), tonumber(self:GetPData("bcraft_wrench", 0))
+end
+
 function ENT:Initialize()
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetMoveType(MOVETYPE_VPHYSICS)
@@ -13,6 +19,7 @@ function ENT:Initialize()
 	self:PhysicsInit(SOLID_VPHYSICS)
 	local phys = self:GetPhysicsObject()
 	phys:Wake()
+	self:SetSpamTime(CurTime() + 0.5)
 end
 
 function ENT:OnTakeDamage(dmg)
@@ -21,11 +28,12 @@ end
 
 function ENT:Use(activator, caller)
 	if !IsValid(caller) or !IsPlayer(caller) then return end
-	if self:GetBeingUsed() then
-		caller:ChatPrint("This crafting station is already in use!")
-	else
-	self:SetBeingUsed(true)
-	
-	self:SetBeingUsed(false)
+	--if self:GetBeingUsed() then
+		--caller:ChatPrint("This crafting station is already in use!")
+	--else
+	--self:SetBeingUsed(true)
+	local PlyWood, PlySpring, PlyWrench = caller:GetBCraftSupply() --Ayy multi-return
+	caller:ChatPrint("You currently have "..PlyWood.." wood, "..PlySpring.." springs, and "..PlyWrench.." wrenches.")
+	--self:SetBeingUsed(false)
 	end
 end
