@@ -32,22 +32,24 @@ end
 
 function ENT:CraftItem(classname, model)
 	if self:GetIsCrafting() then return end
+	self:SetIsCrafting(true)
 	timer.Simple(10, function()
 		local CraftOutput = ents.Create("bcraft_output")
 		CraftOutput:SetOutputClass(classname)
 		CraftOutput:SetModel(model)
 		CraftOutput:SetPos(self:GetPos() + Vector(0, 75, 0))
 		CraftOutput:Spawn()
+		self:SetIsCrafting(false)
 	end)
 end
 
 function ENT:Use(activator, caller)
+	if self:GetSpamTime() > CurTime() then return end
 	if !IsValid(caller) or !IsPlayer(caller) then return end
 	if self:GetIsCrafting() then
 		caller:ChatPrint("This crafting station is currently crafting an item.")
-		return
 	end
 	local PlyWood, PlySpring, PlyWrench = caller:GetBCraftSupply()
 	caller:ChatPrint("You currently have "..PlyWood.." wood, "..PlySpring.." springs, and "..PlyWrench.." wrenches.")
-	end
+	self:SetSpamTime(CurTime() + 0.5)
 end
