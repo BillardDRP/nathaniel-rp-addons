@@ -1,3 +1,5 @@
+BCraft = {}
+
 BCraft.RecipeList = {
 	["00000200lockpick"] = true,
 	["02030100m9k_ak47"] = true,
@@ -9,7 +11,7 @@ function meta:GetBCraftSupply() --Returns: Player's wood, player's springs, play
 	return tonumber(self:GetPData("bcraft_wood", 0)), tonumber(self:GetPData("bcraft_spring", 0)), tonumber(self:GetPData("bcraft_wrench", 0)), tonumber(self:GetPData("bcraft_gunpowder", 0))
 end
 
-BCraftDecodeRecipe = function(recipe) --Returns: Wood needed, springs needed, wrenches needed, gunpowder needed, entity classname
+BCraft.DecodeRecipe = function(recipe) --Returns: Wood needed, springs needed, wrenches needed, gunpowder needed, entity classname
 	return tonumber(string.sub(recipe, 1, 2)), tonumber(string.sub(recipe, 3, 4)), tonumber(string.sub(recipe, 5, 6)), tonumber(string.sub(recipe, 7, 8)), tostring(string.sub(9, string.len(recipe)))
 end
 
