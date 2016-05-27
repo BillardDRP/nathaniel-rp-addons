@@ -43,16 +43,11 @@ end
 
 function ENT:Use(activator, caller)
 	if !IsValid(caller) or !IsPlayer(caller) then return end
-	--if self:GetBeingUsed() then
-		--caller:ChatPrint("This crafting station is already in use!")
-	--else
-	--self:SetBeingUsed(true)
 	if self:GetIsCrafting() then
 		caller:ChatPrint("This crafting station is currently crafting an item.")
 		return
 	end
-	local PlyWood, PlySpring, PlyWrench = caller:GetBCraftSupply() --Ayy multi-return
+	local PlyWood, PlySpring, PlyWrench = caller:GetBCraftSupply()
 	caller:ChatPrint("You currently have "..PlyWood.." wood, "..PlySpring.." springs, and "..PlyWrench.." wrenches.")
-	--self:SetBeingUsed(false)
 	end
 end
