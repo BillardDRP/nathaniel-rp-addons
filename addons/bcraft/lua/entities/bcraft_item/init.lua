@@ -24,9 +24,10 @@ end
 function ENT:Use(activator, caller)
 	if !IsValid(caller) or !IsPlayer(caller) then return end
 	for k, v in pairs(ents.FindInSphere(self:GetPos(), 75)) do
-		if v:GetClass() == self:GetBCraftThing() then
+		if v:GetClass() == "bcraft_thing" then
 			local RecipeOutput = ents.Create("bcraft_output")
-			RecipeOutput:SetModel()
+			RecipeOutput:SetModel(self:GetBCraftOutputModel())
+			RecipeOutput:SetBCraftOutputClass(self:GetBCraftOutput())
 		end
 	end
 end
