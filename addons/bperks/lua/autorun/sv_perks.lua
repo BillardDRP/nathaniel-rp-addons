@@ -38,3 +38,10 @@ function PlyMeta:TakeAllBPerks()
 		end
 	end
 end
+
+hook.Add("PlayerDeath", "BPerks_DieHard", function(victim, inflictor, attacker)
+	if !IsValid(victim) or !IsValid(attacker) or !IsPlayer(attacker) then return end
+	if victim:HasBPerk("diehard") then
+		
+	end
+end)
