@@ -49,15 +49,15 @@ hook.Add("PlayerSay", "BCraft_CraftCommand", function(ply, text, team)
 			ply:SendLua("print('Found item: '..string.sub(tostring(k), 9, string.len(tostring(k))))")
 			if CraftItem == string.sub(tostring(k), 9, string.len(tostring(k))) then
 				if !v then return end
-				local Wood, Springs, Wrenches, Gunpowder, Classname = BCraft.DecodeRecipe(k)
-				local PlyWood, PlySprings, PlyWrenches, PlyGunpowder = ply:GetBCraftSupply()
-				if PlyWood >= Wood and PlySprings >= PlySprings and PlyWrenches >= Wrenches then
+				local Wood, Springs, Wrenches, Gunpowder, Classname = BCraft.DecodeRecipe(k) --Gotta love
+				local PlyWood, PlySprings, PlyWrenches, PlyGunpowder = ply:GetBCraftSupply() --multi-returns
+				if PlyWood >= Wood and PlySprings >= Springs and PlyWrenches >= Wrenches then
 					ply:SetPData("bcraft_wood", PlyWood - Wood)
 					ply:SetPData("bcraft_springs", PlySprings - Springs)
 					ply:SetPData("bcraft_wrenches", PlyWrenches - Wrenches)
 					ply:SetPData("bcraft_gunpowder", PlyGunpowder - Gunpowder)
 					local RecipeOutput = ents.create(string.sub(tostring(k)), 9, string.len(tostring(k)))
-					RecipeOutput:SetPos(ply:GetPos())
+					RecipeOutput:SetPos(ply:GetPos() + (ply:GetAimVector() * 2) + Vector(0, 64, 0))
 					RecipeOutput:Spawn()
 				end
 				break
