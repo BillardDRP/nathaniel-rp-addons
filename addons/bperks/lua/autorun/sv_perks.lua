@@ -45,3 +45,10 @@ hook.Add("PlayerDeath", "BPerks_DieHard", function(victim, inflictor, attacker)
 		
 	end
 end)
+
+hook.Add("PlayerShouldTakeDamage", "BPerks_Arson", function(ply, attacker)
+	if !IsValid(ply) or !IsValid(attacker) or !IsPlayer(attacker) then return end
+	if attacker:HasBPerk("arson") then
+		ply:Ignite(3, 16)
+	end
+end)
