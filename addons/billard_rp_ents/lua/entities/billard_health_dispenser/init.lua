@@ -12,20 +12,17 @@ function ENT:Initialize()
 	if phys:IsValid() then
 		phys:Wake()
 	end
-	self:SetSpamTime(CurTime() + 0.5)
+	self:SetUseType(3)
 end
 
 function ENT:Use(activator,caller)
 	if IsValid(caller) and caller:IsPlayer() then
-		if self:GetSpamTime() <= CurTime() then
-			if caller:Health() > caller:GetMaxHealth() - 5 then
-				caller:SetHealth(caller:GetMaxHealth)
-			else
-				caller:SetHealth(caller:Health() + 5)
-			end
-			self:EmitSound("items/medshot4.wav")
-			DoGenericUseEffect(caller)
-			self:SetSpamTime(CurTime() + 0.5)
+		if caller:Health() > caller:GetMaxHealth() - 5 then
+			caller:SetHealth(caller:GetMaxHealth)
+		else
+			caller:SetHealth(caller:Health() + 5)
 		end
+		self:EmitSound("items/medshot4.wav")
+		DoGenericUseEffect(caller)
 	end
 end

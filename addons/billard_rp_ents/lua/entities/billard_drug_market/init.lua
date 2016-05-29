@@ -12,7 +12,7 @@ function ENT:Initialize()
 	if phys:IsValid() then
 		phys:Wake()
 	end
-	self:SetSpamTime(CurTime() + 0.5)
+	self:SetUseType(3)
 	self:SetMethPrice(400000)
 	self:SetCokePrice(200000)
 	self:SetWeedPrice(60000)
@@ -25,10 +25,7 @@ end
 
 function ENT:Use(activator, caller)
 	if IsValid(caller) and caller:IsPlayer() then
-		if self:GetSpamTime() <= CurTime() then
-			caller:ChatPrint("Bring me drugs and I will pay cash!")
-			DoGenericUseEffect(caller)
-			self:SetSpamTime(CurTime() + 0.5)
-		end
+		caller:ChatPrint("Bring me drugs and I will pay cash!")
+		DoGenericUseEffect(caller)
 	end
 end

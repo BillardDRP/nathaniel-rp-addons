@@ -2,7 +2,6 @@ ENT.Type = "anim"
 ENT.Base = "base_gmodentity"
 
 ENT.PrintName = "Crafting Table"
-ENT.Category = "Billard's Crafting"
 
 ENT.Spawnable = true
 

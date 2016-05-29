@@ -1,6 +1,6 @@
 ENT.Type = "anim"
 ENT.Base = "base_gmodentity"
 
-ENT.PrintName = "Kevlar"
+ENT.PrintName = "Defuser"
 
 ENT.Spawnable = true

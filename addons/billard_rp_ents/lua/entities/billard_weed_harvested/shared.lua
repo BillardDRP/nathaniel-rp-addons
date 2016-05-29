@@ -2,7 +2,6 @@ ENT.Type = "anim"
 ENT.Base = "base_gmodentity"
 
 ENT.PrintName = "Harvested Weed"
-ENT.Category = "Billard's Drugs"
 
 ENT.Spawnable = true
 

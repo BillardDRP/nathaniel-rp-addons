@@ -12,6 +12,7 @@ function ENT:Initialize()
 	if phys:IsValid() then
 		phys:Wake()
 	end
+	self:SetUseType(3)
 	self:SetHasChloride(false)
 	self:SetHasSodium(false)
 end
@@ -36,23 +37,20 @@ end
 
 function ENT:Use(activator, caller)
 	if IsValid(caller) and caller:IsPlayer() then
-		if self:GetSpamTime() <= CurTime() then
-			if self:GetHasChloride() and self:GetHasSodium() then
-				caller:ChatPrint("Your meth has been cooked")
-				local meth = ents.Create("billard_meth")
-				meth:SetPos(self:GetPos() + Vector(0, 40, 0))
-				meth:Spawn()
-				self:SetHasChloride(false)
-				self:SetHasSodium(false)
-			elseif self:GetHasChloride() then
-				caller:ChatPrint("You need to put Sodium in the pot!")
-			elseif self:GetHasSodium() then
-				caller:ChatPrint("You need to put Chloride in the pot!")
-			else
-				caller:ChatPrint("You need to put Chloride and Sodium in the pot!")
-			end
-			DoGenericUseEffect(caller)
-			self:SetSpamTime(CurTime() + 0.5)
+		if self:GetHasChloride() and self:GetHasSodium() then
+			caller:ChatPrint("Your meth has been cooked")
+			local meth = ents.Create("billard_meth")
+			meth:SetPos(self:GetPos() + Vector(0, 40, 0))
+			meth:Spawn()
+			self:SetHasChloride(false)
+			self:SetHasSodium(false)
+		elseif self:GetHasChloride() then
+			caller:ChatPrint("You need to put Sodium in the pot!")
+		elseif self:GetHasSodium() then
+			caller:ChatPrint("You need to put Chloride in the pot!")
+		else
+			caller:ChatPrint("You need to put Chloride and Sodium in the pot!")
 		end
+		DoGenericUseEffect(caller)
 	end
 end

@@ -12,16 +12,13 @@ function ENT:Initialize()
 	if phys:IsValid() then
 		phys:Wake()
 	end
-	self:SetSpamTime(CurTime() + 0.5)
+	self:SetUseType(3)
 end
 
 function ENT:Use(activator, caller)
 	if IsValid(caller) and caller:IsPlayer() then
 		if caller:Armor >= 100 then
-			if self:GetSpamTime() <= CurTime() then
-				caller:ChatPrint("You are already wearing kevlar!")
-				self:SetSpamTime(CurTime() + 0.5)
-			end
+			caller:ChatPrint("You are already wearing kevlar!")
 			return
 		end
 		caller:SetArmor(100)

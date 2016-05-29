@@ -12,9 +12,9 @@ function ENT:Initialize()
 	if phys:IsValid() then
 		phys:Wake()
 	end
+	self:SetUseType(3)
 	self:SetGrowth(0)
 	self:SetIsFinishedGrowing(false)
-	self:SetSpamTime(CurTime() + 0.5)
 end
 
 function ENT:Think()
@@ -26,6 +26,7 @@ function ENT:Think()
 			end
 		end
 	end
+	return true
 end
 
 function ENT:Use(activator, caller)
@@ -41,10 +42,8 @@ function ENT:Use(activator, caller)
 			self:SetGrowth(0)
 			self:SetIsFinishedGrowing(false)
 		else
-			if self:GetSpamTime() < CurTime() then
-				caller:ChatPrint("Weed pot is "..self:GetGrowth.." percent grown")
-				self:SetSpamTime(CurTime() + 0.5)
-			end
+			caller:ChatPrint("Weed pot is "..self:GetGrowth.." percent grown")
+			self:SetSpamTime(CurTime() + 0.5)
 		end
 		DoGenericUseEffect(caller)
 	end

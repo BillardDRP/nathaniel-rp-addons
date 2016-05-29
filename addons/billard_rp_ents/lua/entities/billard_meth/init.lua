@@ -14,6 +14,7 @@ function ENT:Initialize()
 	if phys:IsValid() then
 		phys:Wake()
 	end
+	self:SetUseType(3)
 end
 
 function ENT:Think()

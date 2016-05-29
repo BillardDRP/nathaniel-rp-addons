@@ -12,23 +12,19 @@ function ENT:Initialize()
 	if phys:IsValid() then
 		phys:Wake()
 	end
+	self:SetUseType(3)
 	self:SetIsTurnedOn(true)
-	self:SetSpamTime(CurTime() + 0.5)
 end
 
 function ENT:Use(activator, caller)
 	if IsValid(caller) and caller:IsPlayer() then
 		if self:GetIsTurnedOn() then
-			if self:GetSpamTime() < CurTime() then
-				caller:ChatPrint("Weed lamp has been turned off")
-				self:SetSpamTime(CurTime() + 0.5)
-			end
+			caller:ChatPrint("Weed lamp has been turned off")
+			self:SetSpamTime(CurTime() + 0.5)
 			self:SetIsTurnedOn(false)
 		elseif !self:GetIsTurnedOn() then
-			if self:GetSpamTime() < CurTime() then
-				caller:ChatPrint("Weed lamp has been turned on")
-				self:SetSpamTime(CurTime() + 0.5)
-			end
+			caller:ChatPrint("Weed lamp has been turned on")
+			self:SetSpamTime(CurTime() + 0.5)
 			self:SetIsTurnedOn(true)
 		end
 		DoGenericUseEffect(caller)
