@@ -4,7 +4,7 @@ AddCSLuaFile("shared.lua")
 include("shared.lua")
 
 function ENT:Initialize()
-	self:SetModel("models/props_c17/BriefCase001a.mdl")
+	self:SetModel("models/Items/combine_rifle_ammo01.mdl")
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetMoveType(MOVETYPE_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)
@@ -17,13 +17,8 @@ end
 
 function ENT:Use(activator, caller)
 	if IsValid(caller) and caller:IsPlayer() then
-		if caller:Health() >= caller:GetMaxHealth() then
-			caller:ChatPrint("You already have "..caller:Health().." health!")
-			return
-		end
-		caller:SetHealth(caller:GetMaxHealth())
-		self:EmitSound("items/medshot4.wav")
-		DoGenericUseEffect(caller)
+		self:EmitSound("player/pl_drown"..math.random(1, 3))
+		caller:Kill()
 		self:Remove()
 	end
 end
