@@ -21,11 +21,11 @@ function ENT:Touch(toucher)
 	if IsValid(toucher) then
 		if toucher:GetClass() == "billard_chem_chloride" and !self:GetHasChloride() then
 			self:SetHasChloride(true)
-			self:EmitSound("billard/fizz.wav")
+			self:EmitSound("fizz.wav")
 			toucher:Remove()
 		elseif toucher:GetClass() == "billard_chem_sodium" and !self:GetHasSodium() then
 			self:SetHasSodium(true)
-			self:EmitSound("billard/fizz.wav")
+			self:EmitSound("fizz.wav")
 			toucher:Remove()
 		end
 	end
@@ -36,7 +36,7 @@ function ENT:Use(activator, caller)
 		if self:GetHasChloride() and self:GetHasSodium() then
 			caller:ChatPrint("Your meth has been cooked")
 			local meth = ents.Create("billard_meth")
-			meth:SetPos(self:GetPos() + Vector(0, 40, 0))
+			meth:SetPos(self:GetPos() + Vector(0, 0, 20))
 			meth:Spawn()
 			self:SetHasChloride(false)
 			self:SetHasSodium(false)

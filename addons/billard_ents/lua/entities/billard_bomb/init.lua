@@ -5,8 +5,6 @@ include("shared.lua")
 
 local BombDisarmSound = "weapons/c4/c4_disarm.wav"
 local BombPlantSound = "weapons/c4/c4_plant.wav"
-local BombExplodeSound = "weapons/awp/awp1.wav"
-local BompBeepSound = "weapons/c4/c4_beep1.wav"
 
 function ENT:Initialize()
 	self:SetModel("models/weapons/w_c4_planted.mdl")
@@ -20,17 +18,6 @@ function ENT:Initialize()
 	self:SetUseType(3)
 	self:SetIsActive(false)
 	self:SetBombTime(20)
-end
-
-function ENT:Think()
-	if self:GetIsActive() and !self:GetBombTime() < 1 then
-		self:SetBombTime(self:GetBombTime() - 1)
-		self:NextThink(CurTime() + 1)
-		self:EmitSound(BombBeepSound)
-	elseif self:GetIsActive() and self:GetBombTime() < 1 then
-		self:GoBoom()
-	end
-	return true
 end
 
 function ENT:Touch(toucher)
@@ -59,19 +46,6 @@ function ENT:Use(activator, caller)
 			self:EmitSound(BombPlantSound)
 			caller:ChatPrint("You have planted the bomb. It will detonate in 20 seconds!")
 			DoGenericUseEffect(caller)
-		end
-	end
-end
-
-function ENT:GoBoom()
-	local defusedata = EffectData()
-	defusedata:SetOrigin(self:GetPos())
-	defusedata:SetDamageType(64)
-	util.Effect("HelicopterMegaBomb", defusedata)
-	elf:EmitSound(BombExplodeSound)
-	for k, v in pairs(ents.FindInSphere(self:GetPos(), 1024)) do
-		if IsValid(v) and v:IsPlayer() then
-			v:Kill()
 		end
 	end
 end

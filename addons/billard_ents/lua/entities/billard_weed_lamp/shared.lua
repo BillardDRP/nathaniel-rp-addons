@@ -12,12 +12,12 @@ end
 
 function ENT:Think()
 	if self:GetIsTurnedOn() then
-		self:EmitSound("ambient/machines/machine3.wav")
+		--self:EmitSound("ambient/machines/machine3.wav")
 	else
-		self:StopSound("ambient/machines/machine3.wav")
+		--self:StopSound("ambient/machines/machine3.wav")
 	end
 end
 
 function ENT:OnRemove()
-	self:StopSound("ambient/machines/machine3.wav")
+	--self:StopSound("ambient/machines/machine3.wav")
 end

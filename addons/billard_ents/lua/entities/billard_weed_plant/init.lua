@@ -17,18 +17,6 @@ function ENT:Initialize()
 	self:SetIsFinishedGrowing(false)
 end
 
-function ENT:Think()
-	if !self:GetIsFinishedGrowing() then
-		for k, v in pairs(ents.FindInSphere(self:GetPos(), 300)) do
-			if v:GetClass() == "billard_weed_lamp" then
-				self:SetGrowth(self:GetGrowth() + 1)
-				self:NextThink(CurTime() + 1)
-			end
-		end
-	end
-	return true
-end
-
 function ENT:Use(activator, caller)
 	if IsValid(caller) and caller:IsPlayer() then
 		if !self:GetOwner() then
@@ -37,13 +25,15 @@ function ENT:Use(activator, caller)
 		end
 		if self:GetIsFinishedGrowing() then
 			local baggie = ents.Create("billard_weed_harvested")
-			baggie:SetPos(self:GetPos() + Vector(0, 50, 0))
+			baggie:SetPos(self:GetPos() + Vector(0, 0, 20))
 			baggie:Spawn()
-			self:SetGrowth(0)
-			self:SetIsFinishedGrowing(false)
+			local clone = ents.Create("billard_weed_plant") --We have to dupe ourselves due to a stupid glitch
+			clone:SetPos(self:GetPos())
+			clone:Spawn()
+			clone:SetAngles(self:GetAngles())
+			self:Remove()
 		else
-			caller:ChatPrint("Weed pot is "..self:GetGrowth().." percent grown")
-			self:SetSpamTime(CurTime() + 0.5)
+			caller:ChatPrint("Weed is "..self:GetGrowth().." percent grown")
 		end
 		DoGenericUseEffect(caller)
 	end
